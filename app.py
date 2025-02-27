@@ -44,7 +44,21 @@ def index():
     peliculas = Pelicula.query.all()
     return render_template('index.html', peliculas = peliculas)
 
-
+#CREAR
+@app.route('/new', methods=['GET','POST'])
+def create_pelicula():
+    if request.method == 'POST':
+        #id AUTO_INCREMENT
+        nombre = request.form['nombre']
+        director = request.form['director']
+        estreno = request.form['estreno']
+        genero = request.form['genero']
+        duracion = request.form['duracion']
+        db.session.add(Pelicula(nombre=nombre, director=director, estreno=estreno, genero=genero, duracion=duracion))
+        db.session.commit()
+        return redirect(url_for('index'))
+    #Aqui sigue si es GET
+    return render_template('create_pelicula.html')
 
 
 if __name__ == '__main__':
