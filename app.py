@@ -60,6 +60,15 @@ def create_pelicula():
     #Aqui sigue si es GET
     return render_template('create_pelicula.html')
 
+#ELIMINAR
+@app.route('/delete/<int:id>')
+def delete_pelicula(id):
+    pelicula = Pelicula.query.get(id)
+    if pelicula:
+        db.session.delete(pelicula)
+        db.session.commit()
+    return redirect(url_for('index'))
+
 
 if __name__ == '__main__':
     app.run(debug=True)
