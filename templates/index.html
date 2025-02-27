@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+{% block title %}Listado de peliculas{% endblock %}
+{% block content %}
+<a href="{{ url_for('create_pelicula') }}" class="btn btn-success mb-3">Agregar Pelicula</a>
+<br>
+<table class="table table-bordered">
+    <thead>
+        <tr>
+            <th>ID</th>
+            <th>Nombre</th>
+            <th>Director</th>
+            <th>Fecha de Estreno</th>
+            <th>Genero</th>
+            <th>Duracion (min)</th>
+        </tr>
+    </thead>
+    <tbody>
+        {% for pelicula in peliculas %}
+        <tr>
+            <td>{{ pelicula.id }}</td>
+            <td>{{ pelicula.nombre }}</td>
+            <td>{{ pelicula.director }}</td>
+            <td>{{ pelicula.estreno }}</td>
+            <td>{{ pelicula.genero }}</td>
+            <td>{{ pelicula.duracion }}</td>
+            <td>
+                <a href="{{ url_for('update_pelicula', id = pelicula.id) }}" 
+                class="btn btn-warning">Actualizar</a>
+                <a href="{{ url_for('delete_pelicula', id = pelicula.id) }}" 
+                class="btn btn-danger">Eliminar</a>
+            </td>
+        </tr>
+        {% endfor %}
+    </tbody>
+</table>
+
+{% endblock %}
