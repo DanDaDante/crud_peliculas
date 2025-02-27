@@ -69,6 +69,22 @@ def delete_pelicula(id):
         db.session.commit()
     return redirect(url_for('index'))
 
+#ACTUALIZAR
+@app.route('/update/<int:id>', methods=['GET','POST'])
+def update_pelicula(id):
+    pelicula = Pelicula.query.get(id)
+    if request.method == 'POST':
+        #No se modifica: id
+        pelicula.nombre = request.form['nombre']
+        pelicula.director = request.form['director']
+        pelicula.estreno = request.form['estreno']
+        pelicula.genero = request.form['genero']
+        pelicula.duracion = request.form['duracion']
+        db.session.commit()
+        return redirect(url_for('index'))
+    #Aqui sigue si es GET
+    return render_template('update_pelicula.html', pelicula=pelicula)
+
 
 if __name__ == '__main__':
     app.run(debug=True)
