@@ -37,8 +37,12 @@ class Pelicula(db.Model):
             'duracion': self.duracion
         }
 
+#Crear tablas si no existen
+with app.app_context():
+    db.create_all()
+
 #Ruta raiz
-@app.route('/')
+@app.route('/', methods=['GET'])
 def index():
     #Trae todas las peliculas
     peliculas = Pelicula.query.all()
